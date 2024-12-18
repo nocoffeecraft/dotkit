@@ -1,0 +1,19 @@
+[package]
+name = "dotkit"
+version = "0.0.1"
+edition = "2021"
+authors = ["Abinash S. <nocoffeecraft@gmail.com>"]
+license = "MIT"
+description = "A Scaffolding Tool for Ink Smart Contracts"
+readme = "README.md"
+homepage = "https://github.com/nocoffeecraft/dotkit"
+repository = "https://github.com/noffeecraft/dotkit"
+documentation = "https://docs.rs/dotkit"
+keywords = ["polkadot", "blockchain", "smart-contract", "cli", "web3"]
+categories = ["command-line-utilities", "development-tools", "blockchain"]
+exclude = [
+    "assets/*",
+    ".github/*"
+]
+
+[dependencies]
