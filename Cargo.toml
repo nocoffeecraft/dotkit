@@ -10,7 +10,7 @@ homepage = "https://github.com/nocoffeecraft/dotkit"
 repository = "https://github.com/noffeecraft/dotkit"
 documentation = "https://docs.rs/dotkit"
 keywords = ["polkadot", "blockchain", "smart-contract", "cli", "web3"]
-categories = ["command-line-utilities", "development-tools", "blockchain"]
+categories = ["command-line-utilities", "development-tools"]
 exclude = [
     "assets/*",
     ".github/*"
