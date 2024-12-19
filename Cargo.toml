@@ -17,3 +17,5 @@ exclude = [
 ]
 
 [dependencies]
+anyhow = "1.0.94"
+cliclack = "0.3.5"
