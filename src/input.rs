@@ -1,26 +1,27 @@
 use anyhow::Result;
-use cliclack::{input, intro, outro, select};
+use console::style;
+use cliclack::{input, intro, outro_note, select};
 
 use dotkit::{Contract, CT};
 
 pub fn ask_input() -> Result<()> {
     let mut contract = Contract::default();
 
-    intro("")?;
+    intro(style(" DotKit ").on_white().black())?;
     let name = ask_name()?;
     contract.name(&name);
 
     let tpy = ask_ct()?;
     contract.ct(tpy);
 
-    outro("Let's cook!🚀")?;
+    outro_note("Let's cook!🚀", "1. explian next steps\n2. next step\n3. okey done")?;
 
     println!("{:?}", contract);
     Ok(())
 }
 
 fn ask_name() -> Result<String> {
-    let name: String = input("Enter the project name:")
+    let name: String = input("Enter your project name:")
         .default_input("counter")
         .validate(|input: &String| {
             if input.is_empty() {

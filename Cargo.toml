@@ -19,3 +19,4 @@ exclude = [
 [dependencies]
 anyhow = "1.0.94"
 cliclack = "0.3.5"
+console = "0.15.10"
