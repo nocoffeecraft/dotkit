@@ -1,6 +1,6 @@
 use anyhow::Result;
-use console::style;
 use cliclack::{input, intro, outro_note, select};
+use console::style;
 
 use dotkit::{Contract, CT};
 
@@ -8,13 +8,15 @@ pub fn ask_input() -> Result<Contract> {
     let mut c = Contract::default();
 
     intro(style(" DotKit ").on_white().black())?;
-    let name = ask_name()?;
-    c.name(&name);
+    c = c.name(&ask_name()?)
+        .a_name(&ask_a_name()?)
+        .a_email(&ask_a_email()?)
+        .ct(ask_ct()?);
 
-    let tpy = ask_ct()?;
-    c.ct(tpy);
-
-    outro_note("Let's cook!🚀", "1. explian next steps\n2. next step\n3. okey done")?;
+    outro_note(
+        "Let's cook!🚀",
+        "1. explian next steps\n2. next step\n3. okey done",
+    )?;
 
     Ok(c)
 }
@@ -32,6 +34,36 @@ fn ask_name() -> Result<String> {
         .interact()?;
 
     Ok(name)
+}
+
+fn ask_a_name() -> Result<String> {
+    let a_name: String = input("Enter your name:")
+        .default_input("[your_name]")
+        .validate(|input: &String| {
+            if input.is_empty() {
+                Err("Value is required!")
+            } else {
+                Ok(())
+            }
+        })
+        .interact()?;
+
+    Ok(a_name)
+}
+
+fn ask_a_email() -> Result<String> {
+    let a_email: String = input("Enter your email:")
+        .default_input("[your_email@email.com]")
+        .validate(|input: &String| {
+            if input.contains("@") {
+                Ok(())
+            } else {
+                Err("Invalid email address!")
+            }
+        })
+        .interact()?;
+
+    Ok(a_email)
 }
 
 fn ask_ct() -> Result<CT> {

@@ -1,1 +1,3 @@
 lib.rs {{ c_name }}
+
+{{ ct }}
