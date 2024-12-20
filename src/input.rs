@@ -4,8 +4,11 @@ use console::style;
 
 use dotkit::{Contract, CT};
 
+/// Entry point
 pub fn ask_input() -> Result<Contract> {
     intro(style(" DotKit ").on_white().black())?;
+
+    // Build the contract struct
     let c = Contract::default()
         .name(&ask_name()?)
         .a_name(&ask_a_name()?)
@@ -20,10 +23,11 @@ pub fn ask_input() -> Result<Contract> {
     Ok(c)
 }
 
+/// Ask for contract/project name
 fn ask_name() -> Result<String> {
     let name: String = input("Enter your project name:")
-        .default_input("counter")
-        .validate(|input: &String| {
+        .default_input("counter")           // Default value
+        .validate(|input: &String| {        // Can not be empty
             if input.is_empty() {
                 Err("Value is required!")
             } else {
@@ -35,10 +39,11 @@ fn ask_name() -> Result<String> {
     Ok(name)
 }
 
+/// Ask for author name
 fn ask_a_name() -> Result<String> {
     let a_name: String = input("Enter your name:")
-        .default_input("[your_name]")
-        .validate(|input: &String| {
+        .default_input("[your_name]")           // Default value
+        .validate(|input: &String| {            // Can not be empty
             if input.is_empty() {
                 Err("Value is required!")
             } else {
@@ -50,10 +55,11 @@ fn ask_a_name() -> Result<String> {
     Ok(a_name)
 }
 
+/// Ask for author email
 fn ask_a_email() -> Result<String> {
     let a_email: String = input("Enter your email:")
-        .default_input("[your_email@email.com]")
-        .validate(|input: &String| {
+        .default_input("[your_email@email.com]")        // Default value
+        .validate(|input: &String| {                    // Must be a valid email
             if input.contains("@") {
                 Ok(())
             } else {
@@ -65,6 +71,7 @@ fn ask_a_email() -> Result<String> {
     Ok(a_email)
 }
 
+/// Ask for contract type
 fn ask_ct() -> Result<CT> {
     let typ = select("Pick a project type")
         .item(CT::Counter, "Counter Contract", "")

@@ -1,6 +1,9 @@
 use anyhow::Result;
 
+/// Take inputs from users
 mod input;
+
+/// Render templates
 mod template;
 
 fn main() -> Result<()> {
