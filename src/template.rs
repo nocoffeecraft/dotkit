@@ -11,7 +11,10 @@ pub fn template(c: &Contract) {
     let ct = &c.typ;            // Contract Type
 
     // Init the render engine
-    let tera = Tera::new("templates/**/*.tera").unwrap();
+    let mut tera = Tera::new("src/templates/**/*.tera").unwrap();
+    tera.add_raw_template("lib.tera", include_str!("templates/lib.tera")).unwrap();
+    tera.add_raw_template("cargo.tera", include_str!("templates/cargo.tera")).unwrap();
+    tera.add_raw_template("gitignore.tera", include_str!("templates/gitignore.tera")).unwrap();
 
     let mut context = Context::new();
     context.insert("c_name", c_name);
