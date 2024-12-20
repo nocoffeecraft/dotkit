@@ -5,8 +5,10 @@
 use anyhow::Result;
 
 mod input;
+mod template;
 
 fn main() -> Result<()> {
-    input::ask_input()?;
+    let c = input::ask_input()?;
+    template::template(&c);
     Ok(())
 }

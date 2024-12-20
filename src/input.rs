@@ -4,20 +4,19 @@ use cliclack::{input, intro, outro_note, select};
 
 use dotkit::{Contract, CT};
 
-pub fn ask_input() -> Result<()> {
-    let mut contract = Contract::default();
+pub fn ask_input() -> Result<Contract> {
+    let mut c = Contract::default();
 
     intro(style(" DotKit ").on_white().black())?;
     let name = ask_name()?;
-    contract.name(&name);
+    c.name(&name);
 
     let tpy = ask_ct()?;
-    contract.ct(tpy);
+    c.ct(tpy);
 
     outro_note("Let's cook!🚀", "1. explian next steps\n2. next step\n3. okey done")?;
 
-    println!("{:?}", contract);
-    Ok(())
+    Ok(c)
 }
 
 fn ask_name() -> Result<String> {

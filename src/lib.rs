@@ -1,11 +1,13 @@
+use serde::{Serialize, Deserialize};
+
 #[derive(Clone, Debug)]
 pub struct Contract {
-    name: String,
-    typ: CT,
+    pub name: String,
+    pub typ: CT,
 }
 
 // CT - Contract Type
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum CT {
     Counter,
     Token,
