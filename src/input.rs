@@ -5,17 +5,16 @@ use console::style;
 use dotkit::{Contract, CT};
 
 pub fn ask_input() -> Result<Contract> {
-    let mut c = Contract::default();
-
     intro(style(" DotKit ").on_white().black())?;
-    c = c.name(&ask_name()?)
+    let c = Contract::default()
+        .name(&ask_name()?)
         .a_name(&ask_a_name()?)
         .a_email(&ask_a_email()?)
         .ct(ask_ct()?);
 
     outro_note(
         "Let's cook!🚀",
-        "1. explian next steps\n2. next step\n3. okey done",
+        "1. Open `lib.rs`\n2. Make some required changes\n3. Run `cargo contract build` to build the contract",
     )?;
 
     Ok(c)
@@ -68,21 +67,11 @@ fn ask_a_email() -> Result<String> {
 
 fn ask_ct() -> Result<CT> {
     let typ = select("Pick a project type")
-        .item("c", "Counter Contract", "")
-        .item("t", "Token Contract", "")
-        .item("n", "NFT Contract", "")
-        .item("s", "Swap Contract", "")
-        .item("v", "Voting Contract", "")
+        .item(CT::Counter, "Counter Contract", "")
+        .item(CT::Token, "Token Contract", "")
+        .item(CT::NFT, "NFT Contract", "")
+        .item(CT::Multisig, "Multisig Contract", "")
         .interact()?;
-
-    let typ = match typ {
-        "c" => CT::Counter,
-        "t" => CT::Token,
-        "n" => CT::NFT,
-        "s" => CT::Swap,
-        "v" => CT::Voting,
-        _ => CT::Counter,
-    };
 
     Ok(typ)
 }

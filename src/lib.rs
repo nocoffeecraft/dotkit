@@ -17,7 +17,7 @@ pub struct Contract {
 }
 
 // CT - Contract Type
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum CT {
     /// Basic Counter Contract
     Counter,
@@ -28,11 +28,8 @@ pub enum CT {
     /// Non-Fungible Token Contract
     NFT,
 
-    /// BasicSwaping Contract
-    Swap,
-
-    /// Basic Voting Contract
-    Voting,
+    /// Basic Multisig Contract
+    Multisig,
 }
 
 /// Follows Builder Pattern
