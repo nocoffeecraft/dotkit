@@ -11,6 +11,12 @@ With DotKit, you can:
 - Customize basic details such as project name, author name, and email.
 - Generate a ready-to-use ink! contract with minimal effort.
 
+## Demo
+
+https://github.com/user-attachments/assets/892bf249-e5f2-4087-b4d1-e9a9a3f81f16
+
+![DotKit](assets/dotkit_demo.mp4)
+
 ## Features
 - **Interactive CLI**: DotKit guides you through a simple, interactive process to gather required details.
 - **Supported Contract Types**:
