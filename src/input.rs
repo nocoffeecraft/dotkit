@@ -26,8 +26,9 @@ pub fn ask_input() -> Result<Contract> {
 /// Ask for contract/project name
 fn ask_name() -> Result<String> {
     let name: String = input("Enter your project name:")
-        .default_input("counter")           // Default value
-        .validate(|input: &String| {        // Can not be empty
+        .default_input("counter") // Default value
+        .validate(|input: &String| {
+            // Can not be empty
             if input.is_empty() {
                 Err("Value is required!")
             } else {
@@ -42,8 +43,9 @@ fn ask_name() -> Result<String> {
 /// Ask for author name
 fn ask_a_name() -> Result<String> {
     let a_name: String = input("Enter your name:")
-        .default_input("[your_name]")           // Default value
-        .validate(|input: &String| {            // Can not be empty
+        .default_input("[your_name]") // Default value
+        .validate(|input: &String| {
+            // Can not be empty
             if input.is_empty() {
                 Err("Value is required!")
             } else {
@@ -58,8 +60,9 @@ fn ask_a_name() -> Result<String> {
 /// Ask for author email
 fn ask_a_email() -> Result<String> {
     let a_email: String = input("Enter your email:")
-        .default_input("[your_email@email.com]")        // Default value
-        .validate(|input: &String| {                    // Must be a valid email
+        .default_input("[your_email@email.com]") // Default value
+        .validate(|input: &String| {
+            // Must be a valid email
             if input.contains("@") {
                 Ok(())
             } else {

@@ -1,0 +1,94 @@
+#![cfg_attr(not(feature = "std"), no_std, no_main)]
+
+#[ink::contract]
+mod counter {
+
+    #[ink(storage)]
+    pub struct Count {
+        value: u64,
+    }
+
+    impl Count {
+        #[ink(constructor)]
+        pub fn new(init_value: u64) -> Self {
+            Self { value: init_value }
+        }
+
+        #[ink(constructor)]
+        pub fn default() -> Self {
+            Self::new(Default::default())
+        }
+
+        #[ink(message)]
+        pub fn inc(&mut self) {
+            self.value = self.value.checked_add(1).unwrap_or_default();
+        }
+
+        #[ink(message)]
+        pub fn dec(&mut self) {
+            self.value = self.value.checked_sub(1).unwrap_or_default();
+        }
+
+        #[ink(message)]
+        pub fn get(&self) -> u64 {
+            self.value
+        }
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[ink::test]
+        fn default_works() {
+            let count = Count::default();
+            assert_eq!(count.get(), 0);
+        }
+
+        #[ink::test]
+        fn it_works() {
+            let mut count = Count::new(10);
+            assert_eq!(count.get(), 10);
+
+            count.inc();
+            assert_eq!(count.get(), 11);
+
+            count.dec();
+            assert_eq!(count.get(), 10);
+        }
+    }
+
+    #[cfg(all(test, feature = "e2e-tests"))]
+    mod e2e_tests {
+        /// Imports all the definitions from the outer scope so we can use them here.
+        use super::*;
+
+        /// A helper function used for calling contract messages.
+        use ink_e2e::ContractsBackend;
+
+        /// The End-to-End test `Result` type.
+        type E2EResult<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
+        /// We test that we can upload and instantiate the contract using its default constructor.
+        #[ink_e2e::test]
+        async fn default_works(mut client: ink_e2e::Client<C, E>) -> E2EResult<()> {
+            // Given
+            let mut constructor = CountRef::default();
+
+            // When
+            let contract = client
+                .instantiate("counter", &ink_e2e::alice(), &mut constructor)
+                .submit()
+                .await
+                .expect("instantiate failed");
+            let call_builder = contract.call_builder::<Count>();
+
+            // Then
+            let get = call_builder.get();
+            let get_result = client.call(&ink_e2e::alice(), &get).dry_run().await?;
+            assert!(matches!(get_result.return_value(), 0));
+
+            Ok(())
+        }
+    }
+}
